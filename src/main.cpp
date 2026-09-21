@@ -1,83 +1,49 @@
 #include "ConcurrentMatchingEngine.hpp"
 
 #include <iostream>
-#include <thread>
-#include <vector>
-
 
 int main()
 {
-    ConcurrentMatchingEngine engine;
-
-
-    constexpr int NUM_THREADS = 4;
-    constexpr int ORDERS_PER_THREAD = 25000;
-
-
-    std::vector<std::thread> producers;
-
-
-    // Start multiple producer threads.
-    for (int threadId = 0;
-         threadId < NUM_THREADS;
-         ++threadId)
     {
-        producers.emplace_back(
-            [&engine, threadId]()
-            {
-                for (int i = 0;
-                     i < ORDERS_PER_THREAD;
-                     ++i)
-                {
-                    uint64_t orderId =
-                        static_cast<uint64_t>(
-                            threadId * ORDERS_PER_THREAD + i
-                        );
+        ConcurrentMatchingEngine engine;
 
+        engine.submit({
+            1,
+            "AAPL",
+            Side::BUY,
+            OrderType::LIMIT,
+            10000,
+            500,
+            1,
+            500,
+            OrderStatus::NEW
+        });
 
-                    Order order{
-                        orderId,
-                        "AAPL",
-
-                        Side::BUY,
-                        OrderType::LIMIT,
-
-                        10000,
-
-                        1,
-
-                        orderId,
-
-                        1,
-
-                        OrderStatus::NEW
-                    };
-
-
-                    // Multiple threads are simultaneously
-                    // submitting orders.
-                    engine.submit(order);
-                }
-            }
-        );
+        engine.submit({
+            2,
+            "AAPL",
+            Side::SELL,
+            OrderType::LIMIT,
+            10500,
+            200,
+            2,
+            200,
+            OrderStatus::NEW
+        });
     }
 
 
-    // Wait for every producer to finish.
-    for (auto& producer : producers)
-    {
-        producer.join();
-    }
+    std::cout << "\nOriginal engine shut down.\n";
 
 
-    std::cout
-        << "Submitted "
-        << NUM_THREADS * ORDERS_PER_THREAD
-        << " orders concurrently.\n";
+    // Start a completely new engine.
+    ConcurrentMatchingEngine recoveredEngine;
+
+    // Rebuild its state from orders.log.
+    recoveredEngine.recover();
 
 
-    // Engine destructor will shut down
-    // the matcher thread cleanly.
+    std::cout << "\nRecovery completed.\n";
 
     return 0;
 }
