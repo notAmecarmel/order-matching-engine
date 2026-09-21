@@ -1,104 +1,190 @@
-#include "ConcurrentMatchingEngine.hpp"
+#include "ApiServer.hpp"
 
-#include "httplib.h"
+#include "json.hpp"
 
 #include <iostream>
-#include <string>
+
+using json = nlohmann::json;
 
 
-class ApiServer
+ApiServer::ApiServer(
+    ConcurrentMatchingEngine& engine
+)
+    : engine(engine)
 {
-public:
-
-    ApiServer(
-        ConcurrentMatchingEngine& engine
-    )
-        : engine(engine)
-    {
-    }
+}
 
 
-    void start()
-    {
-        httplib::Server server;
+void ApiServer::start()
+{
+    httplib::Server server;
 
 
-        // --------------------------------------------------
-        // Health check
-        //
-        // GET /health
-        //
-        // Useful for checking whether the server is alive.
-        // --------------------------------------------------
+    // --------------------------------------------------
+    // HEALTH CHECK
+    // --------------------------------------------------
 
-        server.Get(
-            "/health",
-            [](const httplib::Request&,
-               httplib::Response& response)
+    server.Get(
+        "/health",
+        [](const httplib::Request&,
+           httplib::Response& response)
+        {
+            response.set_content(
+                R"({"status":"ok"})",
+                "application/json"
+            );
+        }
+    );
+
+
+    // --------------------------------------------------
+    // SUBMIT ORDER
+    //
+    // POST /orders
+    //
+    // JSON:
+    //
+    // {
+    //   "id": 100,
+    //   "instrument": "AAPL",
+    //   "side": "BUY",
+    //   "type": "LIMIT",
+    //   "price": 10000,
+    //   "quantity": 500
+    // }
+    // --------------------------------------------------
+
+    server.Post(
+        "/orders",
+        [this](
+            const httplib::Request& request,
+            httplib::Response& response)
+        {
+            try
             {
+                // Convert HTTP body into JSON.
+                json data =
+                    json::parse(request.body);
+
+
+                uint64_t id =
+                    data.at("id");
+
+                std::string instrument =
+                    data.at("instrument");
+
+                std::string sideString =
+                    data.at("side");
+
+                std::string typeString =
+                    data.at("type");
+
+                int64_t price =
+                    data.at("price");
+
+                uint64_t quantity =
+                    data.at("quantity");
+
+
+                Side side;
+
+                if (sideString == "BUY")
+                {
+                    side = Side::BUY;
+                }
+                else if (sideString == "SELL")
+                {
+                    side = Side::SELL;
+                }
+                else
+                {
+                    response.status = 400;
+
+                    response.set_content(
+                        R"({"error":"Invalid side"})",
+                        "application/json"
+                    );
+
+                    return;
+                }
+
+
+                OrderType type;
+
+                if (typeString == "LIMIT")
+                {
+                    type = OrderType::LIMIT;
+                }
+                else if (typeString == "MARKET")
+                {
+                    type = OrderType::MARKET;
+                }
+                else
+                {
+                    response.status = 400;
+
+                    response.set_content(
+                        R"({"error":"Invalid order type"})",
+                        "application/json"
+                    );
+
+                    return;
+                }
+
+
+                Order order{
+                    id,
+                    instrument,
+                    side,
+                    type,
+                    price,
+                    quantity,
+                    id,
+                    quantity,
+                    OrderStatus::NEW
+                };
+
+
+                // Send the order into the
+                // concurrent ingestion pipeline.
+                engine.submit(order);
+
+
+                json result = {
+                    {"status", "accepted"},
+                    {"order_id", id}
+                };
+
+
                 response.set_content(
-                    R"({"status":"ok"})",
+                    result.dump(),
                     "application/json"
                 );
             }
-        );
-
-
-        // --------------------------------------------------
-        // Submit order
-        //
-        // POST /orders
-        //
-        // Example body:
-        //
-        // {
-        //   "id": 100,
-        //   "instrument": "AAPL",
-        //   "side": "BUY",
-        //   "type": "LIMIT",
-        //   "price": 10000,
-        //   "quantity": 500
-        // }
-        // --------------------------------------------------
-
-        server.Post(
-            "/orders",
-            [this](
-                const httplib::Request& request,
-                httplib::Response& response)
+            catch (const std::exception& error)
             {
-                std::cout
-                    << "Received order request\n";
+                response.status = 400;
 
-
-                // For the first version we're keeping
-                // request parsing intentionally simple.
-                //
-                // JSON parsing will be added after the
-                // endpoint itself is working.
-
+                json result = {
+                    {"error", error.what()}
+                };
 
                 response.set_content(
-                    R"({"status":"received"})",
+                    result.dump(),
                     "application/json"
                 );
             }
-        );
+        }
+    );
 
 
-        std::cout
-            << "HTTP server listening on "
-            << "http://localhost:8080\n";
+    std::cout
+        << "HTTP server listening on "
+        << "http://localhost:8080\n";
 
 
-        server.listen(
-            "0.0.0.0",
-            8080
-        );
-    }
-
-
-private:
-
-    ConcurrentMatchingEngine& engine;
-};
+    server.listen(
+        "0.0.0.0",
+        8080
+    );
+}
