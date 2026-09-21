@@ -1,4 +1,4 @@
-#include "ConcurrentMatchingEngine.hpp"
+/*#include "ConcurrentMatchingEngine.hpp"
 
 #include <iostream>
 
@@ -44,6 +44,19 @@ int main()
 
 
     std::cout << "\nRecovery completed.\n";
+
+    return 0;
+}*/
+
+#include "ApiServer.cpp"
+
+int main()
+{
+    ConcurrentMatchingEngine engine;
+
+    ApiServer server(engine);
+
+    server.start();
 
     return 0;
 }

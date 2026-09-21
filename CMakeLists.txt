@@ -10,9 +10,11 @@ add_executable(order_engine
     src/OrderBook.cpp
     src/MatchingEngine.cpp
     src/ConcurrentMatchingEngine.cpp
+    src/ApiServer.cpp
 )
 
 target_include_directories(order_engine
     PRIVATE
     include
+    external
 )

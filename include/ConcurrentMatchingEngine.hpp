@@ -18,6 +18,7 @@ public:
     void submit(const Order& order);
 
     void recover();
+    void cancel(uint64_t orderId);
 
 private:
     // Runs on exactly one matcher thread.

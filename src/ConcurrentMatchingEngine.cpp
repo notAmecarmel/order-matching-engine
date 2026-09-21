@@ -62,15 +62,30 @@ void ConcurrentMatchingEngine::matchingLoop()
     }
 }
 
+void ConcurrentMatchingEngine::cancel(
+    uint64_t orderId
+)
+{
+    // Persist the cancellation first.
+    eventLog.appendCancel(orderId);
+
+    // Then modify the in-memory state.
+    engine.cancelOrder(orderId);
+}
+
 void ConcurrentMatchingEngine::recover()
 {
-    // Read all orders that were persisted
-    // before the previous shutdown/crash.
-    auto orders = eventLog.replay();
+    auto events = eventLog.replay();
 
-    for (const auto& order : orders)
+    for (const auto& event : events)
     {
-        // Rebuild the in-memory order book.
-        engine.submitOrder(order);
+        if (event.type == EventType::ORDER)
+        {
+            engine.submitOrder(event.order);
+        }
+        else if (event.type == EventType::CANCEL)
+        {
+            engine.cancelOrder(event.orderId);
+        }
     }
 }

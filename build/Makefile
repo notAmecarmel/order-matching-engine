@@ -129,6 +129,30 @@ order_engine/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/build
 .PHONY : order_engine/fast
 
+src/ApiServer.o: src/ApiServer.cpp.o
+.PHONY : src/ApiServer.o
+
+# target to build an object file
+src/ApiServer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/src/ApiServer.cpp.o
+.PHONY : src/ApiServer.cpp.o
+
+src/ApiServer.i: src/ApiServer.cpp.i
+.PHONY : src/ApiServer.i
+
+# target to preprocess a source file
+src/ApiServer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/src/ApiServer.cpp.i
+.PHONY : src/ApiServer.cpp.i
+
+src/ApiServer.s: src/ApiServer.cpp.s
+.PHONY : src/ApiServer.s
+
+# target to generate assembly for a file
+src/ApiServer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/src/ApiServer.cpp.s
+.PHONY : src/ApiServer.cpp.s
+
 src/ConcurrentMatchingEngine.o: src/ConcurrentMatchingEngine.cpp.o
 .PHONY : src/ConcurrentMatchingEngine.o
 
@@ -234,6 +258,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... order_engine"
+	@echo "... src/ApiServer.o"
+	@echo "... src/ApiServer.i"
+	@echo "... src/ApiServer.s"
 	@echo "... src/ConcurrentMatchingEngine.o"
 	@echo "... src/ConcurrentMatchingEngine.i"
 	@echo "... src/ConcurrentMatchingEngine.s"

@@ -3,9 +3,22 @@
 #include "Order.hpp"
 
 #include <fstream>
-#include <sstream>
 #include <string>
 #include <vector>
+
+enum class EventType
+{
+    ORDER,
+    CANCEL
+};
+
+struct LogEvent
+{
+    EventType type;
+    Order order;
+    uint64_t orderId;
+};
+
 
 class EventLog
 {
@@ -17,13 +30,9 @@ public:
     }
 
 
-    // Write an order event to disk.
     void appendOrder(const Order& order)
     {
-        std::ofstream file(
-            filename,
-            std::ios::app
-        );
+        std::ofstream file(filename, std::ios::app);
 
         file
             << "ORDER "
@@ -38,59 +47,76 @@ public:
     }
 
 
-    // Read all previously persisted orders.
-    std::vector<Order> replay()
+    void appendCancel(uint64_t orderId)
     {
-        std::vector<Order> orders;
+        std::ofstream file(filename, std::ios::app);
+
+        file
+            << "CANCEL "
+            << orderId
+            << "\n";
+    }
+
+
+    std::vector<LogEvent> replay()
+    {
+        std::vector<LogEvent> events;
 
         std::ifstream file(filename);
 
-        std::string line;
+        std::string type;
 
-        while (std::getline(file, line))
+        while (file >> type)
         {
-            std::stringstream stream(line);
-
-            std::string eventType;
-
-            stream >> eventType;
-
-            // Currently we only have ORDER events.
-            if (eventType != "ORDER")
+            if (type == "ORDER")
             {
-                continue;
+                Order order;
+
+                int side;
+                int orderType;
+
+                file
+                    >> order.id
+                    >> order.instrument
+                    >> side
+                    >> orderType
+                    >> order.price
+                    >> order.quantity
+                    >> order.sequence;
+
+                order.side =
+                    static_cast<Side>(side);
+
+                order.type =
+                    static_cast<OrderType>(orderType);
+
+                order.remainingQuantity =
+                    order.quantity;
+
+                order.status =
+                    OrderStatus::NEW;
+
+                events.push_back({
+                    EventType::ORDER,
+                    order,
+                    0
+                });
             }
+            else if (type == "CANCEL")
+            {
+                uint64_t orderId;
 
-            Order order;
+                file >> orderId;
 
-            int side;
-            int type;
-
-            stream
-                >> order.id
-                >> order.instrument
-                >> side
-                >> type
-                >> order.price
-                >> order.quantity
-                >> order.sequence;
-
-            order.side =
-                static_cast<Side>(side);
-
-            order.type =
-                static_cast<OrderType>(type);
-
-            order.remainingQuantity =
-                order.quantity;
-
-            order.status =
-                OrderStatus::NEW;
-
-            orders.push_back(order);
+                events.push_back({
+                    EventType::CANCEL,
+                    {},
+                    orderId
+                });
+            }
         }
 
-        return orders;
+        return events;
     }
 
 
