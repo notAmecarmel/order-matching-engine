@@ -85,12 +85,12 @@ clean: CMakeFiles/order_engine.dir/clean
 CMakeFiles/order_engine.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles --progress-num=1,2,3 "Built target order_engine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles --progress-num=1,2,3,4 "Built target order_engine"
 .PHONY : CMakeFiles/order_engine.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/order_engine.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/order_engine.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles 0
 .PHONY : CMakeFiles/order_engine.dir/rule
@@ -102,7 +102,7 @@ order_engine: CMakeFiles/order_engine.dir/rule
 # codegen rule for target.
 CMakeFiles/order_engine.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles --progress-num=1,2,3 "Finished codegen for target order_engine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles --progress-num=1,2,3,4 "Finished codegen for target order_engine"
 .PHONY : CMakeFiles/order_engine.dir/codegen
 
 # clean rule for target.
