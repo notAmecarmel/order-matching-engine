@@ -129,6 +129,19 @@ order_engine/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/build
 .PHONY : order_engine/fast
 
+#=============================================================================
+# Target rules for targets named benchmark
+
+# Build rule for target.
+benchmark: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 benchmark
+.PHONY : benchmark
+
+# fast build rule for target.
+benchmark/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/build
+.PHONY : benchmark/fast
+
 src/ApiServer.o: src/ApiServer.cpp.o
 .PHONY : src/ApiServer.o
 
@@ -152,6 +165,30 @@ src/ApiServer.s: src/ApiServer.cpp.s
 src/ApiServer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/src/ApiServer.cpp.s
 .PHONY : src/ApiServer.cpp.s
+
+src/Benchmark.o: src/Benchmark.cpp.o
+.PHONY : src/Benchmark.o
+
+# target to build an object file
+src/Benchmark.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/src/Benchmark.cpp.o
+.PHONY : src/Benchmark.cpp.o
+
+src/Benchmark.i: src/Benchmark.cpp.i
+.PHONY : src/Benchmark.i
+
+# target to preprocess a source file
+src/Benchmark.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/src/Benchmark.cpp.i
+.PHONY : src/Benchmark.cpp.i
+
+src/Benchmark.s: src/Benchmark.cpp.s
+.PHONY : src/Benchmark.s
+
+# target to generate assembly for a file
+src/Benchmark.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/src/Benchmark.cpp.s
+.PHONY : src/Benchmark.cpp.s
 
 src/ConcurrentMatchingEngine.o: src/ConcurrentMatchingEngine.cpp.o
 .PHONY : src/ConcurrentMatchingEngine.o
@@ -183,6 +220,7 @@ src/MatchingEngine.o: src/MatchingEngine.cpp.o
 # target to build an object file
 src/MatchingEngine.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/src/MatchingEngine.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/src/MatchingEngine.cpp.o
 .PHONY : src/MatchingEngine.cpp.o
 
 src/MatchingEngine.i: src/MatchingEngine.cpp.i
@@ -191,6 +229,7 @@ src/MatchingEngine.i: src/MatchingEngine.cpp.i
 # target to preprocess a source file
 src/MatchingEngine.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/src/MatchingEngine.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/src/MatchingEngine.cpp.i
 .PHONY : src/MatchingEngine.cpp.i
 
 src/MatchingEngine.s: src/MatchingEngine.cpp.s
@@ -199,6 +238,7 @@ src/MatchingEngine.s: src/MatchingEngine.cpp.s
 # target to generate assembly for a file
 src/MatchingEngine.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/src/MatchingEngine.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/src/MatchingEngine.cpp.s
 .PHONY : src/MatchingEngine.cpp.s
 
 src/OrderBook.o: src/OrderBook.cpp.o
@@ -207,6 +247,7 @@ src/OrderBook.o: src/OrderBook.cpp.o
 # target to build an object file
 src/OrderBook.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/src/OrderBook.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/src/OrderBook.cpp.o
 .PHONY : src/OrderBook.cpp.o
 
 src/OrderBook.i: src/OrderBook.cpp.i
@@ -215,6 +256,7 @@ src/OrderBook.i: src/OrderBook.cpp.i
 # target to preprocess a source file
 src/OrderBook.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/src/OrderBook.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/src/OrderBook.cpp.i
 .PHONY : src/OrderBook.cpp.i
 
 src/OrderBook.s: src/OrderBook.cpp.s
@@ -223,6 +265,7 @@ src/OrderBook.s: src/OrderBook.cpp.s
 # target to generate assembly for a file
 src/OrderBook.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/src/OrderBook.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/src/OrderBook.cpp.s
 .PHONY : src/OrderBook.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -257,10 +300,14 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... benchmark"
 	@echo "... order_engine"
 	@echo "... src/ApiServer.o"
 	@echo "... src/ApiServer.i"
 	@echo "... src/ApiServer.s"
+	@echo "... src/Benchmark.o"
+	@echo "... src/Benchmark.i"
+	@echo "... src/Benchmark.s"
 	@echo "... src/ConcurrentMatchingEngine.o"
 	@echo "... src/ConcurrentMatchingEngine.i"
 	@echo "... src/ConcurrentMatchingEngine.s"

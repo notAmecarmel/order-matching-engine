@@ -1,3 +1,4 @@
 /Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles/order_engine.dir
+/Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles/benchmark.dir
 /Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles/edit_cache.dir
 /Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles/rebuild_cache.dir

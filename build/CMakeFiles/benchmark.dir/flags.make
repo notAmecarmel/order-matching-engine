@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/mac/Desktop/work/order-matching-engine/include -I/Users/mac/Desktop/work/order-matching-engine/external
+CXX_INCLUDES = -I/Users/mac/Desktop/work/order-matching-engine/include
 
 CXX_FLAGS = -O3 -DNDEBUG -std=gnu++20
 

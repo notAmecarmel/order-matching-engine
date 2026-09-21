@@ -64,10 +64,12 @@ CMAKE_BINARY_DIR = /Users/mac/Desktop/work/order-matching-engine/build
 
 # The main recursive "all" target.
 all: CMakeFiles/order_engine.dir/all
+all: CMakeFiles/benchmark.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: CMakeFiles/order_engine.dir/codegen
+codegen: CMakeFiles/benchmark.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -76,6 +78,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/order_engine.dir/clean
+clean: CMakeFiles/benchmark.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -85,7 +88,7 @@ clean: CMakeFiles/order_engine.dir/clean
 CMakeFiles/order_engine.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target order_engine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles --progress-num=5,6,7,8,9,10 "Built target order_engine"
 .PHONY : CMakeFiles/order_engine.dir/all
 
 # Build rule for subdir invocation for target.
@@ -102,13 +105,45 @@ order_engine: CMakeFiles/order_engine.dir/rule
 # codegen rule for target.
 CMakeFiles/order_engine.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Finished codegen for target order_engine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles --progress-num=5,6,7,8,9,10 "Finished codegen for target order_engine"
 .PHONY : CMakeFiles/order_engine.dir/codegen
 
 # clean rule for target.
 CMakeFiles/order_engine.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/clean
 .PHONY : CMakeFiles/order_engine.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/benchmark.dir
+
+# All Build rule for target.
+CMakeFiles/benchmark.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles --progress-num=1,2,3,4 "Built target benchmark"
+.PHONY : CMakeFiles/benchmark.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/benchmark.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/benchmark.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles 0
+.PHONY : CMakeFiles/benchmark.dir/rule
+
+# Convenience name for target.
+benchmark: CMakeFiles/benchmark.dir/rule
+.PHONY : benchmark
+
+# codegen rule for target.
+CMakeFiles/benchmark.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/mac/Desktop/work/order-matching-engine/build/CMakeFiles --progress-num=1,2,3,4 "Finished codegen for target benchmark"
+.PHONY : CMakeFiles/benchmark.dir/codegen
+
+# clean rule for target.
+CMakeFiles/benchmark.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/clean
+.PHONY : CMakeFiles/benchmark.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
