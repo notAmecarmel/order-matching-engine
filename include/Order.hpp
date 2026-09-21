@@ -20,7 +20,7 @@ struct Order {
     Side side;
     OrderType type;
 
-    double price;
+    int64_t price;
     uint64_t quantity;
 
     uint64_t sequence;
