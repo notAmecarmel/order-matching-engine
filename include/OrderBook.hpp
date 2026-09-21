@@ -9,13 +9,24 @@
 #include <map>
 #include <vector>
 
-class OrderBook {
+class OrderBook
+{
 public:
-    std::vector<Trade> addOrder(const Order& order);
+
+    std::vector<Trade> addOrder(
+        const Order& order
+    );
+
+    bool cancelOrder(
+        uint64_t orderId,
+        Side side,
+        int64_t price
+    );
 
     void printBook() const;
 
 private:
+
     using OrderQueue = std::deque<Order>;
 
     std::map<

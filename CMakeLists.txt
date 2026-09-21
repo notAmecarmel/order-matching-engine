@@ -8,6 +8,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(order_engine
     src/main.cpp
     src/OrderBook.cpp
+    src/MatchingEngine.cpp
+    src/ConcurrentMatchingEngine.cpp
 )
 
 target_include_directories(order_engine

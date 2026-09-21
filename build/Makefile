@@ -129,6 +129,30 @@ order_engine/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/build
 .PHONY : order_engine/fast
 
+src/ConcurrentMatchingEngine.o: src/ConcurrentMatchingEngine.cpp.o
+.PHONY : src/ConcurrentMatchingEngine.o
+
+# target to build an object file
+src/ConcurrentMatchingEngine.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/src/ConcurrentMatchingEngine.cpp.o
+.PHONY : src/ConcurrentMatchingEngine.cpp.o
+
+src/ConcurrentMatchingEngine.i: src/ConcurrentMatchingEngine.cpp.i
+.PHONY : src/ConcurrentMatchingEngine.i
+
+# target to preprocess a source file
+src/ConcurrentMatchingEngine.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/src/ConcurrentMatchingEngine.cpp.i
+.PHONY : src/ConcurrentMatchingEngine.cpp.i
+
+src/ConcurrentMatchingEngine.s: src/ConcurrentMatchingEngine.cpp.s
+.PHONY : src/ConcurrentMatchingEngine.s
+
+# target to generate assembly for a file
+src/ConcurrentMatchingEngine.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/order_engine.dir/build.make CMakeFiles/order_engine.dir/src/ConcurrentMatchingEngine.cpp.s
+.PHONY : src/ConcurrentMatchingEngine.cpp.s
+
 src/MatchingEngine.o: src/MatchingEngine.cpp.o
 .PHONY : src/MatchingEngine.o
 
@@ -210,6 +234,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... order_engine"
+	@echo "... src/ConcurrentMatchingEngine.o"
+	@echo "... src/ConcurrentMatchingEngine.i"
+	@echo "... src/ConcurrentMatchingEngine.s"
 	@echo "... src/MatchingEngine.o"
 	@echo "... src/MatchingEngine.i"
 	@echo "... src/MatchingEngine.s"
